@@ -1,0 +1,278 @@
+.java文件
+
+package com.tretar.mylayout;
+
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
+
+
+public class MainActivity extends ActionBarActivity {
+	
+	private RadioGroup rp1;
+	private RadioGroup rp2;
+
+	
+	private RadioButton activeButton1;
+	private RadioButton activeButton2;
+	
+	private Button button1;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        //初始化
+        activeButton1=(RadioButton)findViewById(R.id.quantou1);
+        activeButton2=(RadioButton)findViewById(R.id.quantou2);
+        
+        ButtonListener buttonListener=new ButtonListener();
+        RadioGroupListener rgListener=new RadioGroupListener();
+        
+        rp1=(RadioGroup)findViewById(R.id.user1);
+        rp2=(RadioGroup)findViewById(R.id.user2);
+        rp1.setOnCheckedChangeListener(rgListener);
+        rp2.setOnCheckedChangeListener(rgListener);
+        
+        button1=(Button) findViewById(R.id.button1);
+        button1.setOnClickListener(buttonListener);
+        		
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public class RadioGroupListener implements OnCheckedChangeListener{
+
+		@Override
+		public void onCheckedChanged(RadioGroup arg0, int arg1) {
+//			找出各RadioGroup中激活的RadioButton是哪一个
+			if (arg0.getId()==R.id.user1)
+			    activeButton1=(RadioButton)findViewById(arg1);
+			else if (arg0.getId()==R.id.user2)
+				activeButton2=(RadioButton)findViewById(arg1);
+		}
+
+    }
+    
+    public class ButtonListener implements OnClickListener{
+
+		@Override
+		public void onClick(View arg0) {
+			GameResult gr= new GameResult();
+			gr.judge();
+		}
+    	
+    }
+    
+    public class GameResult{
+    	
+    	private TextView tv1= (TextView) findViewById(R.id.result1);
+    	private TextView tv2= (TextView) findViewById(R.id.result2);
+    	
+    	public void judge(){
+    		if (activeButton1.getId()==R.id.quantou1){
+    			if (activeButton2.getId()==R.id.quantou2)  {tv1.setText("平");tv2.setText("平");}
+    			else if (activeButton2.getId()==R.id.jianzi2)  {tv1.setText("胜");tv2.setText("败");}
+    			else if (activeButton2.getId()==R.id.bu2)  {tv1.setText("败");tv2.setText("胜");}
+    			else {tv1.setText("错误");tv2.setText("错误");}
+    			}
+    		else if (activeButton1.getId()==R.id.jianzi1){
+    			if (activeButton2.getId()==R.id.quantou2)  {tv1.setText("败");tv2.setText("胜");}
+    			else if (activeButton2.getId()==R.id.jianzi2)  {tv1.setText("平");tv2.setText("平");}
+    			else if (activeButton2.getId()==R.id.bu2)  {tv1.setText("胜");tv2.setText("败");}
+    			else {tv1.setText("错误");tv2.setText("错误");}
+    			}
+    		else if (activeButton1.getId()==R.id.bu1){
+    			if (activeButton2.getId()==R.id.quantou2)  {tv1.setText("胜");tv2.setText("败");}
+    			else if (activeButton2.getId()==R.id.jianzi2)  {tv1.setText("败");tv2.setText("胜");}
+    			else if (activeButton2.getId()==R.id.bu2)  {tv1.setText("平");tv2.setText("平");}
+    			else {tv1.setText("错误");tv2.setText("错误");}
+    			}
+    		}
+    	}
+}
+
+-------------------------------------------------------------------------------------------------
+.xml文件
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:text="@string/hello_world"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/image1"
+                android:src="@drawable/hkk"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="center"/>
+            
+            <RadioGroup
+                android:id="@+id/user1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+                
+                <RadioButton
+                    android:id="@+id/quantou1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:checked="true"
+                    android:text="拳头"
+                    />
+                <RadioButton
+                    android:id="@+id/jianzi1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="剪子"
+                    />
+                <RadioButton
+                    android:id="@+id/bu1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="布    "
+                    />
+                </RadioGroup>
+
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/image2"
+                android:src="@drawable/hkk"
+                android:layout_gravity="center"
+                android:scaleType="center"/>
+            
+               <RadioGroup
+                android:id="@+id/user2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+                
+                <RadioButton
+                    android:id="@+id/quantou2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:checked="true"
+                    android:text="拳头"
+                    />
+                <RadioButton
+                    android:id="@+id/jianzi2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    
+                    android:text="剪子"
+                    />
+                <RadioButton
+                    android:id="@+id/bu2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="布    "
+                    />
+                </RadioGroup>
+            
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button1"
+        android:layout_gravity="center"
+        android:text="确定"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/result1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="结果"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/result2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="结果"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
