@@ -1,0 +1,158 @@
+This program is my practice about using the relativelayout.
+
+
+----------------------------------------------------------
+
+package com.tretar.myrelativelayout;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+
+public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}
+
+
+
+
+-----------------------------------
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tretar.myrelativelayout.MainActivity" >
+
+    <TextView
+        android:id="@+id/NameView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="猜拳游戏" />
+    <ImageView 
+        android:id="@+id/ImageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/NameView"
+        android:layout_alignLeft="@id/NameView"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/share_cache_file"
+        />
+    <ImageView 
+        android:id="@+id/ImageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/NameView"
+        android:layout_alignRight="@id/NameView"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/share_cache_file"
+        />
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ImageView1"
+        android:layout_alignLeft="@id/ImageView1"
+        >
+        <RadioButton 
+            android:id="@+id/quantou1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="拳头"/>
+        <RadioButton
+            android:id="@+id/jianzi1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/quantou1"
+            android:layout_alignParentLeft="true"
+            android:text="剪子"/>
+         <RadioButton
+            android:id="@+id/bu1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/jianzi1"
+            android:layout_alignParentLeft="true"
+            android:text="布"/>
+    </RadioGroup>
+      <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:layout_below="@id/ImageView2"
+        android:layout_alignLeft="@id/ImageView2"
+        >
+        <RadioButton 
+            android:id="@+id/quantou2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="拳头"/>
+        <RadioButton
+            android:id="@+id/jianzi2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:layout_below="@id/quantou2"
+            android:layout_alignParentLeft="true"
+            android:text="剪子"/>
+         <RadioButton
+            android:id="@+id/bu2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/jianzi2"
+            android:layout_alignParentLeft="true"
+            android:text="布"/>
+    </RadioGroup>
+    <Button
+        android:id="@+id/okButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radioGroup1"
+        android:layout_centerHorizontal="true"
+        android:text="确定"
+        />
+     <TextView
+        android:id="@+id/resultView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/okButton"
+        android:layout_alignLeft="@id/radioGroup1"
+        android:hint="结果" />
+      <TextView
+        android:id="@+id/resultView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/okButton"
+        android:layout_alignLeft="@id/radioGroup2"
+        android:hint="结果" />
+        
+    "
+
+</RelativeLayout>
+
